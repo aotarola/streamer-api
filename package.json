@@ -1,0 +1,32 @@
+{
+  "name": "redis-worker",
+  "version": "1.0.0",
+  "description": "A simple redis worker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aotarola/redis-worker.git"
+  },
+  "author": "Andres Otarola <andres@otarola.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aotarola/redis-worker/issues"
+  },
+  "homepage": "https://github.com/aotarola/redis-worker#readme",
+  "dependencies": {
+    "nodemon": "^2.0.2",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-groupon": "^8.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-mocha": "^6.2.2",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
+}
