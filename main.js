@@ -9,7 +9,7 @@
 // - please write a README!
 
 const asyncRedis = require('async-redis');
-const { REDIS_HOST, REDIS_PORT } = require('./keys');
+const { REDIS_HOST, REDIS_PORT } = require('./lib/keys');
 const downloadFile = require('./lib/download');
 const pMap = require('p-map');
 const logger = require('pino')();
