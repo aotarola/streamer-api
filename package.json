@@ -17,9 +17,13 @@
   "bugs": {
     "url": "https://github.com/aotarola/redis-worker/issues"
   },
+  "engines": {
+    "node": ">=12"
+  },
   "homepage": "https://github.com/aotarola/redis-worker#readme",
   "dependencies": {
     "async-redis": "^1.1.7",
+    "got": "^10.5.4",
     "nodemon": "^2.0.2",
     "p-map": "^3.0.0",
     "pino": "^5.16.0"
