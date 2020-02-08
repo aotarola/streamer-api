@@ -6,7 +6,6 @@
 // - docker set up
 // - CI
 // - CD
-// - please write a README!
 
 const asyncRedis = require('async-redis');
 const { REDIS_HOST, REDIS_PORT } = require('./lib/keys');
