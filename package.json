@@ -2,7 +2,7 @@
   "name": "redis-worker",
   "version": "1.0.0",
   "description": "A simple redis worker",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon",
@@ -20,7 +20,9 @@
   "homepage": "https://github.com/aotarola/redis-worker#readme",
   "dependencies": {
     "async-redis": "^1.1.7",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "p-map": "^3.0.0",
+    "pino": "^5.16.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -29,6 +31,7 @@
     "eslint-plugin-mocha": "^6.2.2",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "pino-pretty": "^3.5.0",
     "prettier": "^1.19.1"
   }
 }
