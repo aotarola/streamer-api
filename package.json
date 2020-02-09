@@ -2,11 +2,11 @@
   "name": "redis-worker",
   "version": "1.0.0",
   "description": "A simple redis worker",
-  "main": "main.js",
+  "main": "bootstrap.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node bootstrap.js",
     "dev": "nodemon | npx pino-pretty",
-    "test": "mocha test"
+    "test": "LOG_LEVEL=60 mocha test"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "mock-fs": "^4.10.4",
     "nock": "^11.7.2",
     "pino-pretty": "^3.5.0",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "redis-mock": "^0.48.0"
   }
 }
