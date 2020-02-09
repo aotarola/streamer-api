@@ -10,6 +10,7 @@ const STUB_FILENAME = 'interesting-file.txt';
 const STUB_BASE_PATH = 'http://test-domain.com';
 const STUB_URL = 'http://test-domain.com/interesting-file.txt';
 const STUB_CONTENT = 'Interesting Content';
+
 let download;
 
 describe('download', () => {
