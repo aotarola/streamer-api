@@ -1,7 +1,6 @@
 'use strict';
 
 // TODO:
-// - mocha tests
 // - better org code
 // - docker set up
 // - CI
@@ -9,7 +8,7 @@
 
 const asyncRedis = require('async-redis');
 const { REDIS_HOST, REDIS_PORT } = require('./lib/keys');
-const downloadFile = require('./lib/download');
+const download = require('./lib/download');
 const pMap = require('p-map');
 const logger = require('pino')();
 
@@ -26,7 +25,7 @@ const sub = redisClient.duplicate();
 async function downloadFilesPerKey(key) {
   try {
     const url = await redisClient.hget('urls', key);
-    await downloadFile(url);
+    await download(new URL(url));
     await redisClient.hdel('urls', key);
     logger.info(`Downloaded ${url}`);
   } catch (error) {
