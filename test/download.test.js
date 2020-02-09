@@ -7,7 +7,9 @@ const mockFs = require('mock-fs');
 const { promises: fs } = require('fs');
 
 const STUB_FILENAME = 'interesting-file.txt';
-
+const STUB_BASE_PATH = 'http://test-domain.com';
+const STUB_URL = 'http://test-domain.com/interesting-file.txt';
+const STUB_CONTENT = 'Interesting Content';
 let download;
 
 describe('download', () => {
@@ -15,9 +17,9 @@ describe('download', () => {
     process.env.DOWNLOAD_PATH = '/tmp';
     download = require('../lib/download');
 
-    nock('http://test-domain.com')
+    nock(STUB_BASE_PATH)
       .get(`/${STUB_FILENAME}`)
-      .reply(200, 'Interesting Content');
+      .reply(200, STUB_CONTENT);
 
     mockFs({
       '/tmp': {
@@ -31,11 +33,11 @@ describe('download', () => {
   });
 
   it('should download a file', async () => {
-    await download(new URL('http://test-domain.com/interesting-file.txt'));
+    await download(new URL(STUB_URL));
     const fileContent = await fs.readFile(
       `${process.env.DOWNLOAD_PATH}/${STUB_FILENAME}`,
       'utf-8'
     );
-    assert.equal('Interesting Content', fileContent);
+    assert.equal(STUB_CONTENT, fileContent);
   });
 });
