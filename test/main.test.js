@@ -17,24 +17,23 @@ const redisPublisher = asyncRedisClient.duplicate();
 const sleep = promisify(setTimeout);
 
 describe('main', () => {
-  let stubDownload;
+  let stubDownload, stubRedisClient;
   before(() => {
     process.env.DOWNLOAD_PATH = '/tmp';
-
+    stubRedisClient = sinon
+      .stub(asyncRedis, 'createClient')
+      .returns(asyncRedisClient);
     stubDownload = sinon
       .stub(require('../lib/download'), 'download')
       .returns(Promise.resolve());
 
-    require('../main').run({
-      createClient() {
-        return asyncRedisClient;
-      },
-    });
+    require('../main');
   });
 
   after(() => {
     mockFs.restore();
     stubDownload.restore();
+    stubRedisClient.restore();
   });
 
   it('should create a single key in the set', async () => {

@@ -2,9 +2,9 @@
   "name": "redis-worker",
   "version": "1.0.0",
   "description": "A simple redis worker",
-  "main": "bootstrap.js",
+  "main": "main.js",
   "scripts": {
-    "start": "node bootstrap.js",
+    "start": "node main.js",
     "dev": "nodemon | npx pino-pretty",
     "test": "LOG_LEVEL=60 mocha test"
   },
