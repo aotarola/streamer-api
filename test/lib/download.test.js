@@ -16,7 +16,7 @@ let download;
 describe('download', () => {
   before(() => {
     process.env.DOWNLOAD_PATH = '/tmp';
-    download = require('../../lib/download');
+    download = require('../../lib/download').download;
 
     nock(STUB_BASE_PATH)
       .get(`/${STUB_FILENAME}`)
@@ -31,6 +31,7 @@ describe('download', () => {
 
   after(() => {
     mockFs.restore();
+    nock.restore();
   });
 
   it('should download a file', async () => {

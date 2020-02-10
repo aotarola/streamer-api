@@ -41,6 +41,7 @@
     "nock": "^11.7.2",
     "pino-pretty": "^3.5.0",
     "prettier": "^1.19.1",
-    "redis-mock": "^0.48.0"
+    "redis-mock": "^0.48.0",
+    "sinon": "^8.1.1"
   }
 }

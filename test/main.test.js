@@ -3,7 +3,8 @@
 const assert = require('assertive');
 const redis = require('redis-mock');
 const { promisify } = require('util');
-const nock = require('nock');
+
+const sinon = require('sinon');
 
 const client = redis.createClient();
 const asyncRedis = require('async-redis');
@@ -15,28 +16,18 @@ const redisPublisher = asyncRedisClient.duplicate();
 
 const sleep = promisify(setTimeout);
 
-const STUB_BASE_PATH = 'http://test-domain.com';
-const STUB_FILENAME = 'interesting-file.txt';
-const STUB_CONTENT = 'Interesting Content';
-
-const STUB_URL = `${STUB_BASE_PATH}/${STUB_FILENAME}`;
-
 let main;
 
 describe('main', () => {
+  let stubDownload;
   before(() => {
     process.env.DOWNLOAD_PATH = '/tmp';
+
+    stubDownload = sinon
+      .stub(require('../lib/download'), 'download')
+      .returns(Promise.resolve());
+
     main = require('../main');
-
-    nock(STUB_BASE_PATH)
-      .get(`/${STUB_FILENAME}`)
-      .reply(200, STUB_CONTENT);
-
-    mockFs({
-      '/tmp': {
-        /* empty directory*/
-      },
-    });
 
     main.run({
       createClient() {
@@ -47,10 +38,11 @@ describe('main', () => {
 
   after(() => {
     mockFs.restore();
+    stubDownload.restore();
   });
 
   it('should do something', async () => {
-    await asyncRedisClient.hset('urls', 'aurl', STUB_URL);
+    await asyncRedisClient.hset('urls', 'myKey', 'http://anyurl');
     redisPublisher.publish('insert');
     await sleep(100);
     const keys = await asyncRedisClient.hkeys('urls');

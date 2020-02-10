@@ -1,12 +1,11 @@
 'use strict';
 
 // TODO:
-// - better org code
 // - CI
 // - CD
 
 const { REDIS_HOST, REDIS_PORT } = require('./lib/keys');
-const download = require('./lib/download');
+const { download } = require('./lib/download');
 const pMap = require('p-map');
 const logger = require('pino')({
   level: parseInt(process.env.LOG_LEVEL || '10'),
