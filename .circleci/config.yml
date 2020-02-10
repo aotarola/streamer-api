@@ -9,7 +9,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: node:current-alpine
+      - image: aotarola/node-alpine-basics
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
