@@ -32,6 +32,7 @@ describe('download', () => {
   after(() => {
     mockFs.restore();
     nock.restore();
+    process.env.DOWNLOAD_PATH = undefined;
   });
 
   it('should download a file', async () => {

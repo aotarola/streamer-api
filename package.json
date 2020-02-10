@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node main.js",
     "dev": "nodemon | npx pino-pretty",
-    "test": "LOG_LEVEL=60 mocha test"
+    "test": "LOG_LEVEL=60 nyc mocha test",
+    "posttest": "nyc report --reporter=json"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "assertive": "^5.0.0",
+    "codecov": "^3.6.5",
     "eslint": "^6.8.0",
     "eslint-config-groupon": "^8.1.0",
     "eslint-plugin-import": "^2.20.1",
@@ -39,6 +41,7 @@
     "mock-fs": "^4.10.4",
     "nock": "^11.7.2",
     "nodemon": "^2.0.2",
+    "nyc": "^15.0.0",
     "pino-pretty": "^3.5.0",
     "prettier": "^1.19.1",
     "redis-mock": "^0.48.0",
