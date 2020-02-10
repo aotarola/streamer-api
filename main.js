@@ -1,7 +1,6 @@
 'use strict';
 
 // TODO:
-// - CI
 // - CD
 
 const { REDIS_HOST, REDIS_PORT } = require('./lib/keys');
