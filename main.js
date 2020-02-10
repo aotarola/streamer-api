@@ -16,7 +16,7 @@ const CONCURRENCY = 2;
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,
-  retry_strategy: () => 1000,
+  retry_strategy: /* istanbul ignore next */ () => 1000,
 });
 
 const sub = redisClient.duplicate();
