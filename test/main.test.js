@@ -16,8 +16,6 @@ const redisPublisher = asyncRedisClient.duplicate();
 
 const sleep = promisify(setTimeout);
 
-let main;
-
 describe('main', () => {
   let stubDownload;
   before(() => {
@@ -27,9 +25,7 @@ describe('main', () => {
       .stub(require('../lib/download'), 'download')
       .returns(Promise.resolve());
 
-    main = require('../main');
-
-    main.run({
+    require('../main').run({
       createClient() {
         return asyncRedisClient;
       },
