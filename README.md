@@ -13,7 +13,13 @@ npm i
 ## Usage
 
 ```zsh
-npm run dev
+DOWNLOAD_PATH=/tmp npm run dev
+```
+
+## Running tests
+
+```zsh
+npm t
 ```
 
 ## License
