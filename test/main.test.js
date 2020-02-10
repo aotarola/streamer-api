@@ -41,8 +41,13 @@ describe('main', () => {
     stubDownload.restore();
   });
 
-  it('should do something', async () => {
+  it('should create a single key in the set', async () => {
     await asyncRedisClient.hset('urls', 'myKey', 'http://anyurl');
+    const keys = await asyncRedisClient.hkeys('urls');
+    assert.equal(1, keys.length);
+  });
+
+  it('should remove the key after publishing message', async () => {
     redisPublisher.publish('insert');
     await sleep(100);
     const keys = await asyncRedisClient.hkeys('urls');
