@@ -6,17 +6,16 @@ const nock = require('nock');
 const mockFs = require('mock-fs');
 const { promises: fs } = require('fs');
 
+const download = require('../../lib/download').download;
+
 const STUB_FILENAME = 'interesting-file.txt';
 const STUB_BASE_PATH = 'http://test-domain.com';
 const STUB_URL = `${STUB_BASE_PATH}/${STUB_FILENAME}`;
 const STUB_CONTENT = 'Interesting Content';
 
-let download;
-
 describe('download', () => {
   before(() => {
     process.env.DOWNLOAD_PATH = '/tmp';
-    download = require('../../lib/download').download;
 
     nock(STUB_BASE_PATH)
       .get(`/${STUB_FILENAME}`)

@@ -3,7 +3,7 @@
 // TODO:
 // - CD
 
-const { REDIS_HOST, REDIS_PORT } = require('./lib/keys');
+const config = require('./lib/config');
 const { download } = require('./lib/download');
 const pMap = require('p-map');
 const logger = require('pino')({
@@ -13,6 +13,7 @@ const asyncRedis = require('async-redis');
 
 const CONCURRENCY = 2;
 
+const { REDIS_HOST, REDIS_PORT } = config();
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,
