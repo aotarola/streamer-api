@@ -1,6 +1,7 @@
 # redis-worker
 
 [![CircleCI](https://circleci.com/gh/aotarola/redis-worker.svg?style=shield)](https://circleci.com/gh/aotarola/redis-rowrker)
+[![codecov](https://codecov.io/gh/aotarola/redis-worker/branch/master/graph/badge.svg)](https://codecov.io/gh/aotarola/redis-worker)
 
 A simple redis worker that downloads a file to a specified path.
 
