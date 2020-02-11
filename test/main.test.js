@@ -41,24 +41,24 @@ describe('main', () => {
   });
 
   it('should create a single key in the set', async () => {
-    await asyncRedisClient.hset('urls', 'myKey', 'http://anyurl');
-    const keys = await asyncRedisClient.hkeys('urls');
+    await asyncRedisClient.sadd('urls', 'http://anyurl');
+    const keys = await asyncRedisClient.smembers('urls');
     assert.equal(1, keys.length);
   });
 
   it('should remove the key after publishing message', async () => {
     redisPublisher.publish('insert');
     await sleep(100);
-    const keys = await asyncRedisClient.hkeys('urls');
-    assert.equal(0, keys.length);
+    const urls = await asyncRedisClient.smembers('urls');
+    assert.equal(0, urls.length);
   });
 
   it('should noop when failing to download a file', async () => {
-    await asyncRedisClient.hset('urls', 'myKey', 'http://anyurl');
+    await asyncRedisClient.sadd('urls', 'http://anyurl');
     redisPublisher.publish('insert');
     await sleep(100);
-    const keys = await asyncRedisClient.hkeys('urls');
+    const urls = await asyncRedisClient.smembers('urls');
     // fails silently to remove the key
-    assert.equal(1, keys.length);
+    assert.equal(1, urls.length);
   });
 });

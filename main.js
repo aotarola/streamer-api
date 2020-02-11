@@ -22,11 +22,10 @@ const redisClient = asyncRedis.createClient({
 
 const sub = redisClient.duplicate();
 
-async function downloadFilesPerKey(key) {
+async function downloadFilesPerUrl(url) {
   try {
-    const url = await redisClient.hget('urls', key);
     await download(new URL(url));
-    await redisClient.hdel('urls', key);
+    await redisClient.srem('urls', url);
     logger.info(`Downloaded ${url}`);
   } catch (error) {
     logger.error(error, 'downloadFilesPerKey');
@@ -34,9 +33,9 @@ async function downloadFilesPerKey(key) {
 }
 
 sub.on('message', async () => {
-  const keys = await redisClient.hkeys('urls');
-  logger.info(keys, 'Current keys');
-  await pMap(keys, downloadFilesPerKey, { concurrency: CONCURRENCY });
+  const urls = await redisClient.smembers('urls');
+  logger.info(urls, 'Current urls');
+  await pMap(urls, downloadFilesPerUrl, { concurrency: CONCURRENCY });
 });
 
 sub.subscribe('insert');
