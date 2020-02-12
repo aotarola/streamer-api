@@ -26,7 +26,8 @@
     "async-redis": "^1.1.7",
     "got": "^10.5.4",
     "p-map": "^3.0.0",
-    "pino": "^5.16.0"
+    "pino": "^5.16.0",
+    "ssh2": "^0.8.7"
   },
   "devDependencies": {
     "assertive": "^5.0.0",

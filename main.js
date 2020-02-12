@@ -1,6 +1,7 @@
 'use strict';
 
 // TODO:
+// - stream over ssh
 // - CD
 
 const config = require('./lib/config');
