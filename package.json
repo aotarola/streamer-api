@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node main.js",
     "dev": "nodemon -r dotenv/config | npx pino-pretty",
-    "test": "LOG_LEVEL=60 nyc mocha test",
+    "test": "nyc mocha test",
     "posttest": "nyc report --reporter=json"
   },
   "repository": {
