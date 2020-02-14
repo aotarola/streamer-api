@@ -5,7 +5,7 @@
 // - CD
 
 const config = require('./lib/config');
-const { download } = require('./lib/download');
+const { httpStreamToFS } = require('./lib/download');
 const pMap = require('p-map');
 const logger = require('pino')({
   level: parseInt(process.env.LOG_LEVEL || '10'),
@@ -14,7 +14,7 @@ const asyncRedis = require('async-redis');
 
 const CONCURRENCY = 2;
 
-const { REDIS_HOST, REDIS_PORT } = config();
+const { REDIS_HOST, REDIS_PORT, DOWNLOAD_PATH } = config();
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,
@@ -25,7 +25,7 @@ const sub = redisClient.duplicate();
 
 async function downloadFilesPerUrl(url) {
   try {
-    await download(new URL(url));
+    await httpStreamToFS(new URL(url), { localPath: DOWNLOAD_PATH });
     await redisClient.srem('urls', url);
     logger.info(`Downloaded ${url}`);
   } catch (error) {

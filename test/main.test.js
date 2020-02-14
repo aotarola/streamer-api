@@ -25,7 +25,7 @@ describe('main', () => {
       .stub(asyncRedis, 'createClient')
       .returns(asyncRedisClient);
 
-    stubDownload = sinon.stub(require('../lib/download'), 'download');
+    stubDownload = sinon.stub(require('../lib/download'), 'httpStreamToFS');
     stubDownload.onCall(0).returns(Promise.resolve());
     stubDownload.onCall(1).rejects();
 
