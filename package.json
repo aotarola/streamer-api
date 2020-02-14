@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "dev": "nodemon | npx pino-pretty",
+    "dev": "nodemon -r dotenv/config | npx pino-pretty",
     "test": "LOG_LEVEL=60 nyc mocha test",
     "posttest": "nyc report --reporter=json"
   },
@@ -26,11 +26,13 @@
     "async-redis": "^1.1.7",
     "got": "^10.5.4",
     "p-map": "^3.0.0",
-    "pino": "^5.16.0"
+    "pino": "^5.16.0",
+    "ssh2-sftp-client": "^5.0.2"
   },
   "devDependencies": {
     "assertive": "^5.0.0",
     "codecov": "^3.6.5",
+    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-groupon": "^8.1.0",
     "eslint-plugin-import": "^2.20.1",
