@@ -19,8 +19,6 @@ const sleep = promisify(setTimeout);
 describe('main', () => {
   let stubHttpStreamToFS, stubRedisClient;
   before(() => {
-    process.env.DOWNLOAD_PATH = '/tmp';
-
     stubRedisClient = sinon
       .stub(asyncRedis, 'createClient')
       .returns(asyncRedisClient);
@@ -40,7 +38,6 @@ describe('main', () => {
     mockFs.restore();
     stubHttpStreamToFS.restore();
     stubRedisClient.restore();
-    process.env.DOWNLOAD_PATH = undefined;
   });
 
   it('should create a single key in the set', async () => {
