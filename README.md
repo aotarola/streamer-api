@@ -19,14 +19,14 @@ npm i
 npm run dev
 ```
 
-To pass SFTP options, the script will read from the following variables:
+To configure the script, you'll have to set the following environment variables:
 
 * `SFTP_HOST`
 * `SFTP_USER`
 * `SFTP_PASSWORD`
 * `REMOTE_PATH`
 
-For `REMOTE_PATH` you have to pass the absolute remote path.
+**NOTE:** For `REMOTE_PATH` you'll have to pass the absolute remote path.
 
 **_ProTip:_** You can store your env variables in a `.env` file, see more in [dotenv][dotenv]
 
