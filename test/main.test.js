@@ -27,7 +27,7 @@ describe('main', () => {
 
     stubHttpStreamToFS = sinon.stub(
       require('../lib/stream-to'),
-      'httpStreamToFS'
+      'httpStreamToSFTP'
     );
     stubHttpStreamToFS.onCall(0).returns(Promise.resolve());
     stubHttpStreamToFS.onCall(1).rejects();
