@@ -24,6 +24,8 @@ const {
   REMOTE_PATH,
 } = config();
 
+const URLS_SET_NAME = 'urls';
+
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,
@@ -42,7 +44,7 @@ async function downloadFilesPerUrl(url) {
       user: SFTP_USER,
       password: SFTP_PASSWORD,
     });
-    await redisClient.srem('urls', url);
+    await redisClient.srem(URLS_SET_NAME, url);
   } catch (error) {
     logger.error(
       error,
@@ -52,7 +54,7 @@ async function downloadFilesPerUrl(url) {
 }
 
 sub.on('message', async () => {
-  const urls = await redisClient.smembers('urls');
+  const urls = await redisClient.smembers(URLS_SET_NAME);
   await pMap(urls, downloadFilesPerUrl, { concurrency: CONCURRENCY });
 });
 
