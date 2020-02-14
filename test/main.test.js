@@ -17,7 +17,7 @@ const redisPublisher = asyncRedisClient.duplicate();
 const sleep = promisify(setTimeout);
 
 describe('main', () => {
-  let stubDownload, stubRedisClient;
+  let stubHttpStreamToFS, stubRedisClient;
   before(() => {
     process.env.DOWNLOAD_PATH = '/tmp';
 
@@ -25,12 +25,12 @@ describe('main', () => {
       .stub(asyncRedis, 'createClient')
       .returns(asyncRedisClient);
 
-    stubDownload = sinon.stub(
+    stubHttpStreamToFS = sinon.stub(
       require('../lib/http-stream-to'),
       'httpStreamToFS'
     );
-    stubDownload.onCall(0).returns(Promise.resolve());
-    stubDownload.onCall(1).rejects();
+    stubHttpStreamToFS.onCall(0).returns(Promise.resolve());
+    stubHttpStreamToFS.onCall(1).rejects();
 
     // run the app
     require('../main');
@@ -38,7 +38,7 @@ describe('main', () => {
 
   after(() => {
     mockFs.restore();
-    stubDownload.restore();
+    stubHttpStreamToFS.restore();
     stubRedisClient.restore();
     process.env.DOWNLOAD_PATH = undefined;
   });
