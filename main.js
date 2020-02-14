@@ -6,6 +6,7 @@
 const config = require('./lib/config');
 const { httpStreamToFS } = require('./lib/stream-to');
 const pMap = require('p-map');
+/* istanbul ignore next */
 const logger = require('pino')({
   level: parseInt(process.env.LOG_LEVEL || '10'),
 });

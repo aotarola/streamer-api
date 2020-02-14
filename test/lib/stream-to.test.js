@@ -16,7 +16,7 @@ const STUB_CONTENT = 'Interesting Content';
 
 describe('streamTo', () => {
   describe('httpStreamToFS', () => {
-    before(() => {
+    beforeEach(() => {
       nock(STUB_BASE_PATH)
         .get(`/${STUB_FILENAME}`)
         .reply(200, STUB_CONTENT);
@@ -28,7 +28,7 @@ describe('streamTo', () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       mockFs.restore();
       nock.restore();
     });
@@ -42,11 +42,15 @@ describe('streamTo', () => {
       );
       assert.equal(STUB_CONTENT, fileContent);
     });
+
+    it('should throw when no localPath is passed', () => {
+      assert.throws(streamTo.httpStreamToFS);
+    });
   });
 
   describe('httpStreamToSFTP', () => {
     let stubConnect, stubPut, stubEnd;
-    before(() => {
+    beforeEach(() => {
       nock(STUB_BASE_PATH)
         .get(`/${STUB_FILENAME}`)
         .reply(200, STUB_CONTENT);
@@ -56,7 +60,7 @@ describe('streamTo', () => {
       stubEnd = sinon.stub(SFTPClient.prototype, 'end').resolves();
     });
 
-    after(() => {
+    afterEach(() => {
       nock.restore();
       stubConnect.restore();
       stubPut.restore();
@@ -66,6 +70,10 @@ describe('streamTo', () => {
     it('should stream a file from http to sftp', async () => {
       const remotePath = '/tmp';
       await streamTo.httpStreamToSFTP(new URL(STUB_URL), { remotePath });
+    });
+
+    it('should throw when no remotePath is passed', () => {
+      assert.throws(streamTo.httpStreamToSFTP);
     });
   });
 });
