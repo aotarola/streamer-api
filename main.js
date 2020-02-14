@@ -1,11 +1,10 @@
 'use strict';
 
 // TODO:
-// - stream over ssh
 // - CD
 
 const config = require('./lib/config');
-const { httpStreamToFS } = require('./lib/http-stream-to');
+const { httpStreamToFS } = require('./lib/stream-to');
 const pMap = require('p-map');
 const logger = require('pino')({
   level: parseInt(process.env.LOG_LEVEL || '10'),

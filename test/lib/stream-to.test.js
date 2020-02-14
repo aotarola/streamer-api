@@ -7,7 +7,7 @@ const mockFs = require('mock-fs');
 const { promises: fs } = require('fs');
 const sinon = require('sinon');
 const SFTPClient = require('ssh2-sftp-client');
-const streamTo = require('../../lib/http-stream-to');
+const streamTo = require('../../lib/stream-to');
 
 const STUB_FILENAME = 'interesting-file.txt';
 const STUB_BASE_PATH = 'http://test-domain.com';

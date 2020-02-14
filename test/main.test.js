@@ -26,7 +26,7 @@ describe('main', () => {
       .returns(asyncRedisClient);
 
     stubHttpStreamToFS = sinon.stub(
-      require('../lib/http-stream-to'),
+      require('../lib/stream-to'),
       'httpStreamToFS'
     );
     stubHttpStreamToFS.onCall(0).returns(Promise.resolve());
