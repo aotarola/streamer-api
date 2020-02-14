@@ -8,7 +8,6 @@ const sinon = require('sinon');
 
 const client = redis.createClient();
 const asyncRedis = require('async-redis');
-const mockFs = require('mock-fs');
 
 const asyncRedisClient = asyncRedis.decorate(client);
 
@@ -35,7 +34,6 @@ describe('main', () => {
   });
 
   after(() => {
-    mockFs.restore();
     stubHttpStreamToFS.restore();
     stubRedisClient.restore();
   });
