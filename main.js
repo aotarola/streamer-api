@@ -4,7 +4,7 @@
 // - CD
 
 const config = require('./lib/config');
-const { httpStreamToFS } = require('./lib/stream-to');
+const { httpStreamToSFTP } = require('./lib/stream-to');
 const pMap = require('p-map');
 /* istanbul ignore next */
 const logger = require('pino')({
@@ -14,7 +14,14 @@ const asyncRedis = require('async-redis');
 
 const CONCURRENCY = 2;
 
-const { REDIS_HOST, REDIS_PORT, DOWNLOAD_PATH } = config();
+const {
+  REDIS_HOST,
+  REDIS_PORT,
+  SFTP_HOST,
+  SFTP_USER,
+  SFTP_PASSWORD,
+  SFTP_PORT,
+} = config();
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,
@@ -25,11 +32,17 @@ const sub = redisClient.duplicate();
 
 async function downloadFilesPerUrl(url) {
   try {
-    await httpStreamToFS(new URL(url), { localPath: DOWNLOAD_PATH });
+    logger.info(`Downloading ${url}`);
+    await httpStreamToSFTP(new URL(url), {
+      remotePath: '/home/crecelibre/webapps/archivos/blurb',
+      host: SFTP_HOST,
+      port: SFTP_PORT,
+      user: SFTP_USER,
+      password: SFTP_PASSWORD,
+    });
     await redisClient.srem('urls', url);
-    logger.info(`Downloaded ${url}`);
   } catch (error) {
-    logger.error(error, 'downloadFilesPerKey');
+    logger.error(error, 'downloadFilesPerUrl');
   }
 }
 
