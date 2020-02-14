@@ -13,6 +13,8 @@ const STUB_FILENAME = 'interesting-file.txt';
 const STUB_BASE_PATH = 'http://test-domain.com';
 const STUB_URL = `${STUB_BASE_PATH}/${STUB_FILENAME}`;
 const STUB_CONTENT = 'Interesting Content';
+const STUB_DEST_BASE_PATH = '/tmp';
+const STUB_FULL_DEST_FILENAME = `${STUB_DEST_BASE_PATH}/${STUB_FILENAME}`;
 
 describe('streamTo', () => {
   describe('httpStreamToFS', () => {
@@ -36,10 +38,7 @@ describe('streamTo', () => {
     it('should stream a file from http to file system', async () => {
       const localPath = '/tmp';
       await streamTo.httpStreamToFS(new URL(STUB_URL), { localPath });
-      const fileContent = await fs.readFile(
-        `${localPath}/${STUB_FILENAME}`,
-        'utf-8'
-      );
+      const fileContent = await fs.readFile(STUB_FULL_DEST_FILENAME, 'utf-8');
       assert.equal(STUB_CONTENT, fileContent);
     });
 
@@ -70,6 +69,11 @@ describe('streamTo', () => {
     it('should stream a file from http to sftp', async () => {
       const remotePath = '/tmp';
       await streamTo.httpStreamToSFTP(new URL(STUB_URL), { remotePath });
+      sinon.assert.calledWith(
+        stubPut,
+        sinon.match.any,
+        STUB_FULL_DEST_FILENAME
+      );
     });
 
     it('should throw when no remotePath is passed', () => {
