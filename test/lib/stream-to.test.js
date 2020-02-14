@@ -14,7 +14,7 @@ const STUB_BASE_PATH = 'http://test-domain.com';
 const STUB_URL = `${STUB_BASE_PATH}/${STUB_FILENAME}`;
 const STUB_CONTENT = 'Interesting Content';
 
-describe('httpStreamTo', () => {
+describe('streamTo', () => {
   describe('httpStreamToFS', () => {
     before(() => {
       nock(STUB_BASE_PATH)
