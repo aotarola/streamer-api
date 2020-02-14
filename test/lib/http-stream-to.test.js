@@ -6,14 +6,14 @@ const nock = require('nock');
 const mockFs = require('mock-fs');
 const { promises: fs } = require('fs');
 
-const { httpStreamToFS } = require('../../lib/download');
+const { httpStreamToFS } = require('../../lib/http-stream-to');
 
 const STUB_FILENAME = 'interesting-file.txt';
 const STUB_BASE_PATH = 'http://test-domain.com';
 const STUB_URL = `${STUB_BASE_PATH}/${STUB_FILENAME}`;
 const STUB_CONTENT = 'Interesting Content';
 
-describe('download', () => {
+describe('httpStreamTo', () => {
   before(() => {
     nock(STUB_BASE_PATH)
       .get(`/${STUB_FILENAME}`)

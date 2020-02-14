@@ -5,7 +5,7 @@
 // - CD
 
 const config = require('./lib/config');
-const { httpStreamToFS } = require('./lib/download');
+const { httpStreamToFS } = require('./lib/http-stream-to');
 const pMap = require('p-map');
 const logger = require('pino')({
   level: parseInt(process.env.LOG_LEVEL || '10'),
