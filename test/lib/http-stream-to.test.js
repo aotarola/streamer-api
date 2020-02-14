@@ -5,8 +5,9 @@ const assert = require('assertive');
 const nock = require('nock');
 const mockFs = require('mock-fs');
 const { promises: fs } = require('fs');
-
-const { httpStreamToFS } = require('../../lib/http-stream-to');
+const sinon = require('sinon');
+const SFTPClient = require('ssh2-sftp-client');
+const streamTo = require('../../lib/http-stream-to');
 
 const STUB_FILENAME = 'interesting-file.txt';
 const STUB_BASE_PATH = 'http://test-domain.com';
@@ -32,14 +33,39 @@ describe('httpStreamTo', () => {
       nock.restore();
     });
 
-    it('should download a file', async () => {
+    it('should stream a file from http to file system', async () => {
       const localPath = '/tmp';
-      await httpStreamToFS(new URL(STUB_URL), { localPath });
+      await streamTo.httpStreamToFS(new URL(STUB_URL), { localPath });
       const fileContent = await fs.readFile(
         `${localPath}/${STUB_FILENAME}`,
         'utf-8'
       );
       assert.equal(STUB_CONTENT, fileContent);
+    });
+  });
+
+  describe('httpStreamToSFTP', () => {
+    let stubConnect, stubPut, stubEnd;
+    before(() => {
+      nock(STUB_BASE_PATH)
+        .get(`/${STUB_FILENAME}`)
+        .reply(200, STUB_CONTENT);
+
+      stubConnect = sinon.stub(SFTPClient.prototype, 'connect').resolves();
+      stubPut = sinon.stub(SFTPClient.prototype, 'put').resolves();
+      stubEnd = sinon.stub(SFTPClient.prototype, 'end').resolves();
+    });
+
+    after(() => {
+      nock.restore();
+      stubConnect.restore();
+      stubPut.restore();
+      stubEnd.restore();
+    });
+
+    it('should stream a file from http to sftp', async () => {
+      const remotePath = '/tmp';
+      await streamTo.httpStreamToSFTP(new URL(STUB_URL), { remotePath });
     });
   });
 });
