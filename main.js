@@ -21,7 +21,9 @@ const {
   SFTP_USER,
   SFTP_PASSWORD,
   SFTP_PORT,
+  REMOTE_PATH,
 } = config();
+
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,
@@ -32,9 +34,9 @@ const sub = redisClient.duplicate();
 
 async function downloadFilesPerUrl(url) {
   try {
-    logger.info(`Downloading ${url}`);
+    logger.info(`downloading ${url}`);
     await httpStreamToSFTP(new URL(url), {
-      remotePath: '/home/crecelibre/webapps/archivos/blurb',
+      remotePath: REMOTE_PATH,
       host: SFTP_HOST,
       port: SFTP_PORT,
       user: SFTP_USER,
@@ -42,13 +44,15 @@ async function downloadFilesPerUrl(url) {
     });
     await redisClient.srem('urls', url);
   } catch (error) {
-    logger.error(error, 'downloadFilesPerUrl');
+    logger.error(
+      error,
+      `an exception ocurred when trying to operate on ${url}`
+    );
   }
 }
 
 sub.on('message', async () => {
   const urls = await redisClient.smembers('urls');
-  logger.info(urls, 'Current urls');
   await pMap(urls, downloadFilesPerUrl, { concurrency: CONCURRENCY });
 });
 
