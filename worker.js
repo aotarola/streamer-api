@@ -22,10 +22,9 @@ const {
   SFTP_PASSWORD,
   SFTP_PORT,
   REMOTE_PATH,
+  URLS_SET_NAME,
 } = config();
-
-const URLS_SET_NAME = 'urls';
-
+console.log(config());
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,

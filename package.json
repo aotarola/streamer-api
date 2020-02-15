@@ -2,10 +2,10 @@
   "name": "redis-worker",
   "version": "1.0.0",
   "description": "A simple redis worker",
-  "main": "main.js",
+  "main": "api.js",
   "scripts": {
-    "start": "node main.js",
-    "dev": "nodemon -r dotenv/config | npx pino-pretty",
+    "api-dev": "nodemon -r dotenv/config api.js",
+    "worker-dev": "nodemon -r dotenv/config worker.js | npx pino-pretty",
     "test": "LOG_LEVEL=60 nyc mocha test",
     "posttest": "nyc report --reporter=json"
   },
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/aotarola/redis-worker#readme",
   "dependencies": {
+    "@hapi/hapi": "^19.1.1",
     "async-redis": "^1.1.7",
     "got": "^10.5.4",
     "p-map": "^3.0.0",

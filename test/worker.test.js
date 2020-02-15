@@ -16,14 +16,14 @@ const redisPublisher = asyncRedisClient.duplicate();
 
 const sleep = promisify(setTimeout);
 
-describe('main', () => {
+describe('worker', () => {
   let stubHttpStreamToFS, stubRedisClient;
   before(() => {
     stubRedisClient = sinon
       .stub(asyncRedis, 'createClient')
       .returns(asyncRedisClient);
     stubHttpStreamToFS = sinon.stub(streamTo, 'httpStreamToSFTP');
-    require('../main');
+    require('../worker');
   });
 
   after(() => {
