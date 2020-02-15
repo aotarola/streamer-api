@@ -24,7 +24,7 @@ const {
   REMOTE_PATH,
   URLS_SET_NAME,
 } = config();
-console.log(config());
+
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,

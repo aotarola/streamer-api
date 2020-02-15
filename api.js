@@ -19,18 +19,30 @@ const init = async () => {
     method: 'POST',
     path: '/stream-url',
     handler: async (request, h) => {
+      request.logger.info('In handler %s', request.path);
       await redisClient.sadd(URLS_SET_NAME, request.payload.url);
       await pub.publish('insert', 'message');
       return h.response('').code(201);
     },
   });
 
+  await server.register({
+    plugin: require('hapi-pino'),
+    options: {
+      prettyPrint: process.env.NODE_ENV !== 'production',
+      redact: ['req.headers.authorization'],
+    },
+  });
+
   await server.start();
+  // eslint-disable-next-line no-console
   console.log('Server running on %s', server.info.uri);
 };
 
 process.on('unhandledRejection', err => {
-  console.log(err);
+  // eslint-disable-next-line no-console
+  console.error(err);
+  // eslint-disable-next-line no-process-exit
   process.exit(1);
 });
 
