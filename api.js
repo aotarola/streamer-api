@@ -1,7 +1,13 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
-const { REDIS_HOST, REDIS_PORT, URLS_SET_NAME } = require('./lib/config')();
+const {
+  REDIS_HOST,
+  REDIS_PORT,
+  URLS_SET_NAME,
+  SERVER_HOST,
+  SERVER_PORT,
+} = require('./lib/config')();
 const asyncRedis = require('async-redis');
 
 const redisClient = asyncRedis.createClient({
@@ -13,16 +19,16 @@ const redisClient = asyncRedis.createClient({
 const pub = redisClient.duplicate();
 
 const init = async () => {
-  const server = Hapi.server({ port: 3000, host: 'localhost' });
+  const server = Hapi.server({ host: SERVER_HOST, port: SERVER_PORT });
 
   server.route({
     method: 'POST',
     path: '/stream-url',
-    handler: async (request, h) => {
+    handler: async (request, toolkit) => {
       request.logger.info('In handler %s', request.path);
       await redisClient.sadd(URLS_SET_NAME, request.payload.url);
       await pub.publish('insert', 'message');
-      return h.response('').code(201);
+      return toolkit.response('').code(201);
     },
   });
 
