@@ -1,4 +1,4 @@
-# redis-worker
+# streamer API
 
 [![CircleCI](https://circleci.com/gh/aotarola/redis-worker.svg?style=shield)](https://circleci.com/gh/aotarola/redis-worker)
 [![codecov](https://codecov.io/gh/aotarola/redis-worker/branch/master/graph/badge.svg)](https://codecov.io/gh/aotarola/redis-worker)
