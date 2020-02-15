@@ -1,9 +1,9 @@
 # streamer API
 
-[![CircleCI](https://circleci.com/gh/aotarola/redis-worker.svg?style=shield)](https://circleci.com/gh/aotarola/redis-worker)
-[![codecov](https://codecov.io/gh/aotarola/redis-worker/branch/master/graph/badge.svg)](https://codecov.io/gh/aotarola/redis-worker)
+[![CircleCI](https://circleci.com/gh/aotarola/streamer-api.svg?style=shield)](https://circleci.com/gh/aotarola/streamer-api)
+[![codecov](https://codecov.io/gh/aotarola/streamer-api/branch/master/graph/badge.svg)](https://codecov.io/gh/aotarola/streamer-api)
 
-A simple redis worker that streams a remote file to a specified remote path via SFTP.
+A simple API that offloads the task to stream a file to a SFTP server.
 
 ## Installation
 
@@ -19,7 +19,7 @@ npm i
 npm run dev
 ```
 
-To configure the script, you'll have to set the following environment variables:
+To configure the app, you'll have to set the following environment variables:
 
 * `SFTP_HOST`
 * `SFTP_USER`
