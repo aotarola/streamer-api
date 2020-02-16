@@ -1,13 +1,17 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+const devnull = require('dev-null');
+const config = require('./lib/config');
+
 const {
   REDIS_HOST,
   REDIS_PORT,
   URLS_SET_NAME,
   SERVER_HOST,
   SERVER_PORT,
-} = require('./lib/config')();
+} = config;
+
 const asyncRedis = require('async-redis');
 
 const redisClient = asyncRedis.createClient({
@@ -18,33 +22,18 @@ const redisClient = asyncRedis.createClient({
 
 const pub = redisClient.duplicate();
 
-const init = async () => {
-  const server = Hapi.server({ host: SERVER_HOST, port: SERVER_PORT });
+const server = Hapi.server({ host: SERVER_HOST, port: SERVER_PORT });
 
-  server.route({
-    method: 'POST',
-    path: '/stream-url',
-    handler: async (request, toolkit) => {
-      request.logger.info('In handler %s', request.path);
-      await redisClient.sadd(URLS_SET_NAME, request.payload.url);
-      await pub.publish('insert', 'message');
-      return toolkit.response('').code(201);
-    },
-  });
-
-  await server.register({
-    plugin: require('hapi-pino'),
-    options: {
-      prettyPrint: process.env.NODE_ENV !== 'production',
-      redact: ['req.headers.authorization'],
-    },
-  });
-
-  await server.start();
-  // eslint-disable-next-line no-console
-  console.log('Server running on %s', server.info.uri);
-};
-
+server.route({
+  method: 'POST',
+  path: '/stream-url',
+  handler: async (request, toolkit) => {
+    await redisClient.sadd(URLS_SET_NAME, request.payload.url);
+    await pub.publish('insert', 'message');
+    return toolkit.response('').code(201);
+  },
+});
+/* istanbul ignore next */
 process.on('unhandledRejection', err => {
   // eslint-disable-next-line no-console
   console.error(err);
@@ -52,4 +41,28 @@ process.on('unhandledRejection', err => {
   process.exit(1);
 });
 
-init();
+module.exports = {
+  /* istanbul ignore next */
+  async start(start) {
+    await server.register({
+      plugin: require('hapi-pino'),
+      options: {
+        prettyPrint: process.env.NODE_ENV !== 'production',
+        redact: ['req.headers.authorization'],
+        logRequestStart: true,
+        stream: process.env.LOG_LEVEL === '60' ? devnull() : process.stdout,
+      },
+    });
+
+    if (start) {
+      await server.start();
+
+      // eslint-disable-next-line no-console
+      console.log(`Server running at: ${server.info.uri}`);
+    } else {
+      await server.initialize();
+    }
+
+    return server;
+  },
+};
