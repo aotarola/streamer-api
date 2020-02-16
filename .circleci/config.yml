@@ -42,7 +42,15 @@ jobs:
       - codecov/upload:
           file: coverage/*.json
           flags: frontend
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git:
+          branch: master
+
 workflows:
   heroku_deploy:
     jobs:
-      - heroku/deploy-via-git
+      - deploy
