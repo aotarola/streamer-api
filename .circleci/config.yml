@@ -47,10 +47,12 @@ jobs:
     steps:
       - checkout
       - heroku/install
-      - heroku/deploy-via-git:
-          branch: master
+      - heroku/deploy-via-git
 
 workflows:
   heroku_deploy:
     jobs:
-      - deploy
+      - deploy:
+          filters:
+            branches:
+              only: master
