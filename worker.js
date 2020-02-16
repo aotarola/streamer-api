@@ -1,8 +1,5 @@
 'use strict';
 
-// TODO:
-// - CD
-
 const config = require('./lib/config');
 const { httpStreamToSFTP } = require('./lib/stream-to');
 const pMap = require('p-map');
