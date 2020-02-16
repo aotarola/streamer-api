@@ -33,6 +33,13 @@ server.route({
     return toolkit.response('').code(201);
   },
 });
+
+server.route({
+  method: 'GET',
+  path: '/healthcheck',
+  handler: () => '',
+});
+
 /* istanbul ignore next */
 process.on('unhandledRejection', err => {
   // eslint-disable-next-line no-console
