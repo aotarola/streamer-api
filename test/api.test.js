@@ -7,9 +7,15 @@ const asyncRedis = require('async-redis');
 
 sinon.stub(asyncRedis, 'createClient').returns({
   duplicate() {
-    return { publish() { } };
+    return {
+      publish() {
+        return sinon.stub();
+      },
+    };
   },
-  sadd() { },
+  sadd() {
+    return sinon.stub();
+  },
 });
 
 const api = require('../api');
