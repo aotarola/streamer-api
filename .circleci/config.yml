@@ -52,6 +52,7 @@ jobs:
 workflows:
   heroku_deploy:
     jobs:
+      - build
       - deploy:
           filters:
             branches:
