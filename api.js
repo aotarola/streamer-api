@@ -7,6 +7,7 @@ const config = require('./lib/config');
 const {
   REDIS_HOST,
   REDIS_PORT,
+  REDIS_URL,
   URLS_SET_NAME,
   SERVER_HOST,
   SERVER_PORT,
@@ -17,12 +18,16 @@ const asyncRedis = require('async-redis');
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,
+  url: REDIS_URL,
   retry_strategy: /* istanbul ignore next */ () => 1000,
 });
 
 const pub = redisClient.duplicate();
 
-const server = Hapi.server({ host: SERVER_HOST, port: SERVER_PORT });
+const server = Hapi.server({
+  host: SERVER_HOST,
+  port: SERVER_PORT,
+});
 
 server.route({
   method: 'POST',

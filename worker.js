@@ -20,11 +20,13 @@ const {
   SFTP_PORT,
   REMOTE_PATH,
   URLS_SET_NAME,
+  REDIS_URL,
 } = config;
 
 const redisClient = asyncRedis.createClient({
   host: REDIS_HOST,
   port: REDIS_PORT,
+  url: REDIS_URL,
   retry_strategy: /* istanbul ignore next */ () => 1000,
 });
 
