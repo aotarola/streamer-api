@@ -27,13 +27,33 @@ describe('POST /stream-url', () => {
   });
 
   describe('POST /stream-url', () => {
-    it('responds with 201', async () => {
-      const res = await server.inject({
-        method: 'post',
-        url: '/stream-url',
-        payload: { url: 'any url' },
+    describe('201 status code', () => {
+      it('should succeed', async () => {
+        const res = await server.inject({
+          method: 'post',
+          url: '/stream-url',
+          payload: { url: 'any url' },
+        });
+        assert.equal(201, res.statusCode);
       });
-      assert.equal(201, res.statusCode);
+    });
+    describe('400 status code', () => {
+      it('should fail for empty string in url key', async () => {
+        const res = await server.inject({
+          method: 'post',
+          url: '/stream-url',
+          payload: { url: '' },
+        });
+        assert.equal(400, res.statusCode);
+      });
+
+      it('should fail when no payload is passed', async () => {
+        const res = await server.inject({
+          method: 'post',
+          url: '/stream-url',
+        });
+        assert.equal(400, res.statusCode);
+      });
     });
   });
 

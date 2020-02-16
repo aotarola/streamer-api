@@ -24,6 +24,7 @@
   "homepage": "https://github.com/aotarola/redis-worker#readme",
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
+    "@hapi/joi": "^17.1.0",
     "async-redis": "^1.1.7",
     "dev-null": "^0.1.1",
     "got": "^10.5.4",

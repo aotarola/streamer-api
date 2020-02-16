@@ -3,6 +3,7 @@
 const Hapi = require('@hapi/hapi');
 const devnull = require('dev-null');
 const config = require('./lib/config');
+const Joi = require('@hapi/joi');
 
 const {
   REDIS_HOST,
@@ -36,6 +37,13 @@ server.route({
     await redisClient.sadd(URLS_SET_NAME, request.payload.url);
     await pub.publish('insert', 'message');
     return toolkit.response('').code(201);
+  },
+  options: {
+    validate: {
+      payload: Joi.object({
+        url: Joi.string().required(),
+      }),
+    },
   },
 });
 
