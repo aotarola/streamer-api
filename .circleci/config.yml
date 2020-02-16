@@ -7,7 +7,7 @@ orbs:
   codecov: codecov/codecov@1.0.5
   heroku: circleci/heroku@1.0.1
 jobs:
-  build:
+  tests:
     docker:
       # specify the version you desire here
       - image: aotarola/node-alpine-basics
@@ -52,7 +52,7 @@ jobs:
 workflows:
   heroku_deploy:
     jobs:
-      - build
+      - tests
       - deploy:
           filters:
             branches:
