@@ -6,6 +6,7 @@
   "scripts": {
     "api-dev": "nodemon -r dotenv/config api-run.js",
     "worker-dev": "nodemon -r dotenv/config worker.js | npx pino-pretty",
+    "create-token": "node -r dotenv/config scripts/create-token.js",
     "test": "LOG_LEVEL=60 nyc mocha test",
     "posttest": "nyc report --reporter=json"
   },
@@ -28,6 +29,7 @@
     "async-redis": "^1.1.7",
     "dev-null": "^0.1.1",
     "got": "^10.5.4",
+    "hapi-auth-jwt2": "^9.0.1",
     "hapi-pino": "^6.5.0",
     "p-map": "^3.0.0",
     "pino": "^5.16.0",
@@ -43,6 +45,7 @@
     "eslint-plugin-mocha": "^6.2.2",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "jsonwebtoken": "^8.5.1",
     "mocha": "^7.0.1",
     "mock-fs": "^4.10.4",
     "nock": "^11.7.2",
