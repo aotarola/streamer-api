@@ -7,6 +7,7 @@
     "api-dev": "nodemon -r dotenv/config api-run.js",
     "worker-dev": "nodemon -r dotenv/config worker.js | npx pino-pretty",
     "create-token": "node -r dotenv/config scripts/create-token.js",
+    "pretest": "eslint .",
     "test": "LOG_LEVEL=60 nyc mocha test",
     "posttest": "nyc report --reporter=json"
   },
