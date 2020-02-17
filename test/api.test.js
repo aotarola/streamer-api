@@ -43,6 +43,16 @@ describe('POST /stream-url', () => {
         assert.equal(201, res.statusCode);
       });
     });
+    describe('401 status code', () => {
+      it('should fail when no JWT token is passed', async () => {
+        const res = await server.inject({
+          method: 'post',
+          url: '/stream-url',
+          payload: { url: 'any url' },
+        });
+        assert.equal(401, res.statusCode);
+      });
+    });
     describe('400 status code', () => {
       it('should fail for empty string in url key', async () => {
         const res = await server.inject({
