@@ -80,14 +80,4 @@ describe('POST /stream-url', () => {
       });
     });
   });
-
-  describe('GET /healthcheck', () => {
-    it('responds with 200', async () => {
-      const res = await server.inject({
-        method: 'get',
-        url: '/healthcheck',
-      });
-      assert.equal(204, res.statusCode);
-    });
-  });
 });

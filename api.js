@@ -55,6 +55,10 @@ module.exports = {
 
     await server.register(require('hapi-auth-jwt2'));
 
+    await server.register({
+      plugin: require('hapi-alive'),
+    });
+
     server.auth.strategy('jwt', 'jwt', {
       key: JWT_SECRET,
       validate: async ({ token }) => {
@@ -81,12 +85,6 @@ module.exports = {
           }),
         },
       },
-    });
-
-    server.route({
-      method: 'GET',
-      path: '/healthcheck',
-      handler: () => '',
     });
 
     if (start) {
