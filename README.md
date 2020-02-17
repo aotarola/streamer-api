@@ -19,9 +19,8 @@ node versions
 nvm i lts/erbium
 ```
 
-In development mode the app uses **redis** so be sure to have it installed,
-in docker it'd be:
-and running.
+In development mode the app uses **redis** so be sure to have it installed
+and running, in docker it'd be:
 
 ```
 docker run  -p 6379:6379 redis:alpine
