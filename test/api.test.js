@@ -23,6 +23,11 @@ const api = require('../api');
 describe('POST /stream-url', () => {
   let server;
 
+  const auth = {
+    strategy: 'jwt',
+    credentials: {},
+  };
+
   before(async () => {
     server = await api.start(false);
   });
@@ -39,6 +44,7 @@ describe('POST /stream-url', () => {
           method: 'post',
           url: '/stream-url',
           payload: { url: 'any url' },
+          auth,
         });
         assert.equal(201, res.statusCode);
       });
@@ -59,6 +65,7 @@ describe('POST /stream-url', () => {
           method: 'post',
           url: '/stream-url',
           payload: { url: '' },
+          auth,
         });
         assert.equal(400, res.statusCode);
       });
@@ -67,6 +74,7 @@ describe('POST /stream-url', () => {
         const res = await server.inject({
           method: 'post',
           url: '/stream-url',
+          auth,
         });
         assert.equal(400, res.statusCode);
       });
