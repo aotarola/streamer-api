@@ -1,7 +1,7 @@
 # streamer API
 
 [![CircleCI](https://circleci.com/gh/aotarola/streamer-api.svg?style=shield)](https://circleci.com/gh/aotarola/streamer-api)
-[![codecov](https://codecov.io/gh/aotarola/streamer-api/branch/master/graph/badge.svg)](https://codecov.io/gh/aotarola/streamer-api)
+[![codecov](https://codecov.io/gh/aotarola/streamer-api/branch/master/graph/badge.svg)](https://codecov.io/gh/aotarola/streamer-api) [![Greenkeeper badge](https://badges.greenkeeper.io/aotarola/streamer-api.svg)](https://greenkeeper.io/)
 
 A simple API that offloads the task to stream a file to a SFTP server.
 
