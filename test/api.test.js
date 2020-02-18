@@ -4,6 +4,11 @@ const assert = require('assertive');
 const sinon = require('sinon');
 
 const asyncRedis = require('async-redis');
+
+// Needed for CI environment
+process.env.JWT_AUTH_TOKEN = 'secret-token';
+process.env.JWT_SECRET = 'secret';
+
 const createToken = require('../scripts/create-token');
 
 sinon.stub(asyncRedis, 'createClient').returns({
