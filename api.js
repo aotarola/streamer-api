@@ -1,3 +1,3 @@
 'use strict';
 
-require('./api').start(true);
+require('./lib/api').start(true);
