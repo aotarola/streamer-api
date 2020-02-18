@@ -2,7 +2,7 @@
   "name": "redis-worker",
   "version": "1.0.0",
   "description": "A simple redis worker",
-  "main": "api-run.js",
+  "main": "api.js",
   "scripts": {
     "api-dev": "nodemon -r dotenv/config api-run.js",
     "worker-dev": "nodemon -r dotenv/config worker.js | npx pino-pretty",

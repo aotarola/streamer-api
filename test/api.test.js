@@ -18,7 +18,7 @@ sinon.stub(asyncRedis, 'createClient').returns({
   },
 });
 
-const api = require('../api');
+const api = require('../lib/api');
 
 describe('POST /stream-url', () => {
   let server;
