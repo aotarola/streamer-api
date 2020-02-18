@@ -4,6 +4,7 @@ const assert = require('assertive');
 const sinon = require('sinon');
 
 const asyncRedis = require('async-redis');
+const createToken = require('../scripts/create-token');
 
 sinon.stub(asyncRedis, 'createClient').returns({
   duplicate() {
@@ -23,9 +24,8 @@ const api = require('../lib/api');
 describe('POST /stream-url', () => {
   let server;
 
-  const auth = {
-    strategy: 'jwt',
-    credentials: {},
+  const headers = {
+    authorization: createToken(),
   };
 
   before(async () => {
@@ -44,11 +44,12 @@ describe('POST /stream-url', () => {
           method: 'post',
           url: '/stream-url',
           payload: { url: 'any url' },
-          auth,
+          headers,
         });
         assert.equal(201, res.statusCode);
       });
     });
+
     describe('401 status code', () => {
       it('should fail when no JWT token is passed', async () => {
         const res = await server.inject({
@@ -59,13 +60,14 @@ describe('POST /stream-url', () => {
         assert.equal(401, res.statusCode);
       });
     });
+
     describe('400 status code', () => {
       it('should fail for empty string in url key', async () => {
         const res = await server.inject({
           method: 'post',
           url: '/stream-url',
           payload: { url: '' },
-          auth,
+          headers,
         });
         assert.equal(400, res.statusCode);
       });
@@ -74,7 +76,7 @@ describe('POST /stream-url', () => {
         const res = await server.inject({
           method: 'post',
           url: '/stream-url',
-          auth,
+          headers,
         });
         assert.equal(400, res.statusCode);
       });

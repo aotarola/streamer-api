@@ -9,5 +9,10 @@ function createToken() {
   );
 }
 
-// eslint-disable-next-line no-console
-console.log(createToken());
+module.exports = createToken;
+
+/* istanbul ignore next */
+if (require.main === module) {
+  // eslint-disable-next-line no-console
+  console.log(createToken());
+}
