@@ -85,6 +85,26 @@ object should have the following shape:
 npm t
 ```
 
+# API docs
+
+## Open Endpoints
+
+## Endpoints that require Authentication
+
+Closed endpoints require a valid Token to be included in the `Authorization` header of the request.
+
+A Token can be created via:
+
+```
+npm run create-token
+```
+
+**Note**: `JWT_AUTH_TOKEN` and `JWT_SECRET` need to be set as environment variables
+
+### Stream url related
+
+* [Offload URL to remote](stream-url.md) : `POST /stream-url`
+
 ## License
 
 MIT
