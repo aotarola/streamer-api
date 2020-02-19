@@ -85,13 +85,9 @@ object should have the following shape:
 npm t
 ```
 
-# API docs
+# API spec
 
-## Open Endpoints
-
-## Endpoints that require Authentication
-
-Closed endpoints require a valid Token to be included in the `Authorization` header of the request.
+The exposed endpoints require a `JWT` token to be passed in the `Authorization` header of the request (or a `token` query param).
 
 A Token can be created via:
 
