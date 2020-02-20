@@ -21,19 +21,20 @@
     "url": "https://github.com/aotarola/redis-worker/issues"
   },
   "engines": {
-    "node": "v12.13.0"
+    "node": "v12.13.0",
+    "npm": "6.13.7"
   },
   "homepage": "https://github.com/aotarola/redis-worker#readme",
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
     "@hapi/joi": "^17.1.0",
-    "@sentry/node": "^5.12.4",
     "async-redis": "^1.1.7",
     "dev-null": "^0.1.1",
     "got": "^10.5.4",
     "hapi-alive": "^2.0.4",
     "hapi-auth-jwt2": "^9.0.1",
     "hapi-pino": "^6.5.0",
+    "hapi-sentry": "^3.0.0",
     "p-map": "^3.0.0",
     "pino": "^5.16.0",
     "ssh2-sftp-client": "^5.0.2"
