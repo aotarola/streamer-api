@@ -1,7 +1,5 @@
 'use strict';
 
-require('honeybadger').configure({
-  apiKey: process.env.HONEYBADGER_API_KEY,
-});
+require('@sentry/node').init({ dsn: process.env.SENTRY_DSN });
 
 require('./lib/api').start(true);
