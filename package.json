@@ -56,7 +56,7 @@
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
     "pino-pretty": "^3.5.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.2",
     "redis-mock": "^0.49.0",
     "sinon": "^9.0.0"
   }
