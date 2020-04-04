@@ -33,7 +33,7 @@
     "got": "^10.5.4",
     "hapi-alive": "^2.0.4",
     "hapi-auth-jwt2": "^10.0.0",
-    "hapi-pino": "^6.5.0",
+    "hapi-pino": "^7.0.0",
     "hapi-sentry": "^3.0.0",
     "p-map": "^4.0.0",
     "pino": "^5.16.0",
