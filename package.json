@@ -30,7 +30,7 @@
     "@hapi/joi": "^17.1.0",
     "async-redis": "^1.1.7",
     "dev-null": "^0.1.1",
-    "got": "^10.5.4",
+    "got": "^11.1.0",
     "hapi-alive": "^2.0.4",
     "hapi-auth-jwt2": "^10.0.0",
     "hapi-pino": "^6.5.0",
